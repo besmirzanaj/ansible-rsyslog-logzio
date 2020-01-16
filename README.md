@@ -3,8 +3,8 @@ Ansible Role: rsyslog-logzio
 
 An Ansible role to configure a CentOS 7 machine to send logs through rsyslog over TLS to logz.io. 
 More documentation on the steps involved is here https://app.logz.io/#/dashboard/data-sources/rsyslog-overTLS.
-Target OS is CentOS 7.
-TODO: Include more than one file in ```rsyslog_logzio_filepath```
+
+TODO: Include more than one file to be sent in logz.io in the variable ```rsyslog_logzio_filepath```.
 
 Requirements
 ------------
@@ -19,7 +19,7 @@ Main variables to define are described in defaults/main.yml. The easiest way to 
 To get the API token use the Token variable from the [General Setting](https://app.logz.io/#/dashboard/settings/general) site in Logz.io.
 
 To get an idea on the logz.io types see [here](https://support.logz.io/hc/en-us/articles/210205985-Which-log-types-are-preconfigured-on-the-Logz-io-platform-). 
-To get the 
+ 
 
 ```
 $ cat vars/logzio.yml
