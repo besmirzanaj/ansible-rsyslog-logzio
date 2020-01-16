@@ -24,8 +24,8 @@
   copy:
     src: "{{ rsyslog_logzio_ca_certificate }}"
     dest: "{{ rsyslog_logzio_ca_destination }}"
-    owner: "{{rsyslog_user}}"
-    group: "{{rsyslog_group}}"
+    owner: "{{ rsyslog_user }}"
+    group: "{{ rsyslog_group }}"
   when:  rsyslog_logzio_ca_destination is defined
 
 - name: Main rsyslog configuration
@@ -43,9 +43,9 @@
 - name: Create remote logz.io config file
   template:
     src: remote_logzio.conf.j2
-    dest: "{{rsyslog_d_dir}}/20-logzio-messages.conf"
-    owner: "{{rsyslog_user}}"
-    group: "{{rsyslog_group}}"
+    dest: "{{ rsyslog_d_dir }}/20-logzio-messages.conf"
+    owner: "{{ rsyslog_user }}"
+    group: "{{ rsyslog_group }}"
   when: rsyslog_remote_logger is defined
   notify:
     - restart rsyslog
