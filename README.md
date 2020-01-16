@@ -1,38 +1,59 @@
 Role Name
 =========
 
-An Ansible role to configure logz.io
+An Ansible role to configure logz.io to send logs through rsyslog over TLS. More documentation on the steps involved is here https://app.logz.io/#/dashboard/data-sources/rsyslog-overTLS
+Target OS is CentOS 7.
+TODO: Include more than one file in ```rsyslog_logzio_filepath```
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+No requirements are needed for this role in CentOS 7.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Main variables to define are described in defaults/main.yml. The easiest way to set your variables is to create a variable file in vars/logzio.yml with this content:
+
+```
+$ cat vars/logzio.yml
+---
+# defaults file for ansible-rsyslog-logzio
+rsyslog_logzio_filepath: "FILE_TO_READ_FOR_LOGS"
+rsyslog_logzio_type: "LOGZ_IO_TYPE"
+rsyslog_logzio_api_token: "YOUR_API_CODE_HERE"
+```
+
+Include this variables in the playbook with the vars setting:
+
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+No dependencies are needed from this role.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+This is a simple 
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```
+- name: apply the logz.io rsyslog forwarder
+  hosts:
+    - all
+  vars_files:
+    - ./vars/logzio.yml
+  roles:
+    - { role: besmirzanaj.ansible_rsyslog_logzio } 
+```
 
 License
 -------
 
-BSD
+CC-BY-4.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This role was created in 2020 by [Besmir Zanaj](https://www.cloudalbania.com).
