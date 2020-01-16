@@ -9,12 +9,17 @@ TODO: Include more than one file in ```rsyslog_logzio_filepath```
 Requirements
 ------------
 
-No requirements are needed for this role in CentOS 7.
+Selinux default configuration does not allow for rsyslog to forward meesages to a remote host. Adopt selinux policies or set it to ```permissive``` for this role to work in CentOS 7.
 
 Role Variables
 --------------
 
 Main variables to define are described in defaults/main.yml. The easiest way to set your variables is to create a variable file in vars/logzio.yml with this content:
+
+To get the API token use the Token variable from the [General Setting](https://app.logz.io/#/dashboard/settings/general) site in Logz.io.
+
+To get an idea on the logz.io types see [here](https://support.logz.io/hc/en-us/articles/210205985-Which-log-types-are-preconfigured-on-the-Logz-io-platform-). 
+To get the 
 
 ```
 $ cat vars/logzio.yml
@@ -25,8 +30,7 @@ rsyslog_logzio_type: "LOGZ_IO_TYPE"
 rsyslog_logzio_api_token: "YOUR_API_CODE_HERE"
 ```
 
-Include this variables in the playbook with the vars setting:
-
+Include these variables in the playbook with the vars setting in the role. See below an example. Role will not work without these variables
 
 
 Dependencies
