@@ -1,7 +1,8 @@
-Role Name
+Ansible Role: rsyslog-logzio
 =========
 
-An Ansible role to configure logz.io to send logs through rsyslog over TLS. More documentation on the steps involved is here https://app.logz.io/#/dashboard/data-sources/rsyslog-overTLS
+An Ansible role to configure a CentOS 7 machine to send logs through rsyslog over TLS to logz.io. 
+More documentation on the steps involved is here https://app.logz.io/#/dashboard/data-sources/rsyslog-overTLS.
 Target OS is CentOS 7.
 TODO: Include more than one file in ```rsyslog_logzio_filepath```
 
