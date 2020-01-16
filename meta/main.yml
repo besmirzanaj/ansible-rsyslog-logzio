@@ -1,6 +1,6 @@
 galaxy_info:
   author: Besmir Zanaj
-  description: ansible role to send /var/log/messages to logz.io over TLS
+  description: Ansible role to send /var/log/messages to logz.io over TLS
   company: CloudAlbania
 
   license: CC-BY-4.0
