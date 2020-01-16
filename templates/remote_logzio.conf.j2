@@ -1,0 +1,23 @@
+#   -------------------------------------------------------
+#        File Logging Directives for Logz.io
+#   -------------------------------------------------------
+$ModLoad imfile
+$InputFilePollInterval 10
+$PrivDropToGroup adm
+$WorkDirectory {{rsyslog_working_dir}}
+# File access file:
+$InputFileName {{rsyslog_logzio_filepath}}
+$InputFileTag {{rsyslog_logzio_type}}:
+$InputFileStateFile stat-{{rsyslog_logzio_type}}
+$InputFileSeverity info
+$InputFilePersistStateInterval 20000
+$InputRunFileMonitor
+
+$DefaultNetstreamDriverCAFile {{rsyslog_logzio_ca_destination}} 
+$ActionSendStreamDriver gtls
+$ActionSendStreamDriverMode 1
+$ActionSendStreamDriverAuthMode x509/name
+$ActionSendStreamDriverPermittedPeer *.logz.io
+$template logzFormatFileTagName,"[{{rsyslog_logzio_api_token}}] <%pri%>%protocol-version% %timestamp:::date-rfc3339% %HOSTNAME% %app-name% %procid% %msgid% [type={{rsyslog_logzio_type}}] %msg%\n"
+if $programname == '{{rsyslog_logzio_type}}' then @@{{rsyslog_remote_logger}}:5001;logzFormatFileTagName
+if $programname == '{{rsyslog_logzio_type}}' then stop

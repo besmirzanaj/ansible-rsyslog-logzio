@@ -1,0 +1,17 @@
+---
+# defaults file for ansible-rsyslog-logzio
+rsyslog_conf_file: "/etc/rsyslog.conf"
+rsyslog_d_dir: "/etc/rsyslog.d"
+rsyslog_working_dir: "/var/lib/rsyslog"
+rsyslog_logzio_ca_destination: "/etc/ssl/certs/AddTrustExternalCARoot.crt"
+rsyslog_logzio_ca_certificate: "logz-io-ca.crt"
+rsyslog_user: "root"
+rsyslog_group: "root"
+rsyslog_packages: 
+  - rsyslog
+  - rsyslog-gnutls
+rsyslog_service: "rsyslog"
+rsyslog_remote_logger: "listener.logz.io"
+rsyslog_logzio_filepath: "FILE_TO_READ_FOR_LOGS"
+rsyslog_logzio_type: "LOGZ_IO_TYPE"
+rsyslog_logzio_api_token: "YOUR_API_CODE_HERE"

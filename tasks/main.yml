@@ -1,0 +1,57 @@
+---
+# tasks file for ansible-rsyslog-logzio
+
+- name: uninstall conflicting systemd-logger
+  package:
+    name: systemd-logger
+    state: absent
+
+- name: install rsyslog
+  package:
+    name: "{{ rsyslog_packages }}"
+    state: present
+  register: rsyslog_install_rsyslog
+  until: rsyslog_install_rsyslog is succeeded
+  retries: 3
+
+- name: Create SSL directory
+  file:
+    path: "/etc/ssl/certs"
+    state: directory
+  when:  rsyslog_logzio_ca_destination is defined
+
+- name: Copy logz.io provided CA file
+  copy:
+    src: "{{ rsyslog_logzio_ca_certificate }}"
+    dest: "{{ rsyslog_logzio_ca_destination }}"
+    owner: "{{rsyslog_user}}"
+    group: "{{rsyslog_group}}"
+  when:  rsyslog_logzio_ca_destination is defined
+
+- name: Main rsyslog configuration
+  template:
+    src: rsyslog.conf.j2
+    dest: "{{ rsyslog_conf_file }}"
+  notify:
+    - restart rsyslog
+
+- name: Create the extra configurations directory
+  file:
+    name: /etc/rsyslog.d/
+    state: directory
+
+- name: Create remote logz.io config file
+  template:
+    src: remote_logzio.conf.j2
+    dest: "{{rsyslog_d_dir}}/20-logzio-messages.conf"
+    owner: "{{rsyslog_user}}"
+    group: "{{rsyslog_group}}"
+  when: rsyslog_remote_logger is defined
+  notify:
+    - restart rsyslog
+
+- name: start and enable rsyslog
+  service:
+    name: "{{ rsyslog_service }}"
+    state: started
+    enabled: yes
